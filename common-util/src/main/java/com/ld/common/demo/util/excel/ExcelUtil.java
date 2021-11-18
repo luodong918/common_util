@@ -5,15 +5,11 @@ import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.write.handler.WriteHandler;
-import com.ld.common.demo.util.excel.factory.EasyExcelWriterFactory;
 import com.ld.common.demo.util.excel.listener.EasyExcelConsumerListener;
 import com.ld.common.demo.util.excel.listener.ExcelListener;
 
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -191,46 +187,6 @@ public class ExcelUtil extends EasyExcel {
         EasyExcel.write(filePath, headClazz).excludeColumnFiledNames(excludeCols).sheet(sheetNo, sheetName).doWrite(data);
     }
 
-    /**
-     * 可用于Web页面数据的导出。
-     *
-     * @param response
-     * @param exportFileName 导出的文件名称
-     * @param headClass      映射的对象
-     * @param data           待写入的数据
-     * @param sheetName      sheet名称
-     * @return
-     */
-    public static void writeWithSheetsWeb(HttpServletResponse response, String exportFileName, Class headClass,
-                                          List data, String sheetName) throws IOException {
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码
-        String fileName = URLEncoder.encode(exportFileName, "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcelWriterFactory excelWriter = new EasyExcelWriterFactory(response.getOutputStream());
-        excelWriter.writeModel(headClass, data, sheetName).finish();
-    }
-
-    /**
-     * 可用于Web页面数据的导出。
-     *
-     * @param response
-     * @param exportFileName 导出的文件名称
-     * @param headClass      映射的对象
-     * @param data           待写入的数据
-     * @return
-     */
-    public static void writeWithSheetsWeb(HttpServletResponse response, String exportFileName, Class headClass,
-                                          List data) throws IOException {
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码
-        String fileName = URLEncoder.encode(exportFileName, "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcelWriterFactory excelWriter = new EasyExcelWriterFactory(response.getOutputStream());
-        excelWriter.writeModel(headClass, data);
-    }
 
     /**
      * 获取sheet页的sheetname
