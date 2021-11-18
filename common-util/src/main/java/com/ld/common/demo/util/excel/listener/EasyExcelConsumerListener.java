@@ -3,11 +3,15 @@ package com.ld.common.demo.util.excel.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+
+@Slf4j
 public class EasyExcelConsumerListener<T> extends AnalysisEventListener<T> {
     private int batchSize;
     private List<T> list;
@@ -21,12 +25,12 @@ public class EasyExcelConsumerListener<T> extends AnalysisEventListener<T> {
 
     @Override
     public void invoke(T data, AnalysisContext analysisContext) {
+        log.info("每行读取数据：{{}}",data.toString());
         list.add(data);
         if (list.size() >= batchSize) {
             consumer.accept(list);
             list.clear();
         }
-
     }
 
     @Override
@@ -36,9 +40,15 @@ public class EasyExcelConsumerListener<T> extends AnalysisEventListener<T> {
 
     @Override
     public void onException(Exception exception, AnalysisContext context) {
+        log.info("异常处理");
         if (exception instanceof ExcelDataConvertException) {
-            ExcelDataConvertException excelDataConvertException = (ExcelDataConvertException) exception;
-                    excelDataConvertException.getColumnIndex();
+            ExcelDataConvertException excelDataConvertException = (ExcelDataConvertException)exception;
+            log.error("第{}行，第{}列解析异常，数据为:{}", excelDataConvertException.getRowIndex(),
+                    excelDataConvertException.getColumnIndex(), excelDataConvertException.getCellData());
+//                    excelDataConvertException.getColumnIndex();
         }
     }
+
+
+
 }

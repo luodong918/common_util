@@ -40,10 +40,31 @@
         </dependency>
 
         <!--easyExcel-->
+        <!--<dependency>-->
+        <!--    <groupId>javax.servlet</groupId>-->
+        <!--    <artifactId>javax.servlet-api</artifactId>-->
+        <!--    <version>3.1.0</version>-->
+        <!--    <scope>provided</scope>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--easyExcel-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>2.2.6</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.78</version>
         </dependency>
 
     </dependencies>
