@@ -11,6 +11,10 @@ import java.util.function.Consumer;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
+/**
+ * 一般正常的读取excel
+ * @param <T>
+ */
 @Slf4j
 public class EasyExcelConsumerListener<T> extends AnalysisEventListener<T> {
     private int batchSize;
