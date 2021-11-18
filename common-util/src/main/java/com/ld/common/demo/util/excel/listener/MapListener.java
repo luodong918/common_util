@@ -1,4 +1,4 @@
-package com.ld.common.demo.common;
+package com.ld.common.demo.util.excel.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ExcelListener extends AnalysisEventListener<Object> {
+public class MapListener extends AnalysisEventListener<Object> {
     private static final Logger logger = LoggerFactory.getLogger(ExcelListener.class);
 
-    private List<Object> data = new ArrayList<>();
+    private List data = new ArrayList();
 
     @Override
     public void invoke(Object o, AnalysisContext analysisContext) {
-       int a = analysisContext.getTotalCount();
+        int a = analysisContext.getTotalCount();
         logger.info(String.valueOf(a));
         data.add(o);
     }
@@ -40,16 +40,16 @@ public class ExcelListener extends AnalysisEventListener<Object> {
      * 入库
      */
     private void saveData() {
-        logger.info("{}条数据，开始存储数据库！", data.size());
+//        logger.info("{}条数据，开始存储数据库！", data.size());
         //这个方法自己实现  能完成保存数据入库即可
         logger.info("存储数据库成功！");
     }
 
-    public List<Object> getData() {
+    public List getData() {
         return data;
     }
 
-    public void setData(List<Object> data) {
+    public void setData(List data) {
         this.data = data;
     }
 }
